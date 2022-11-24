@@ -65,7 +65,6 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCa
    * строки во view-компоненте.
    */
   override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-    Log.d("onBindViewHolder", "${++count}")
     val shopItem = getItem(position)
 
     holder.itemView.setOnClickListener {

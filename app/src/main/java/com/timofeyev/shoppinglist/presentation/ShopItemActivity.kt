@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.timofeyev.shoppinglist.R
 import com.timofeyev.shoppinglist.domain.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
   private var screenMode = MODE_UNKNOWN
   private var shopItemId = ShopItem.UNDEFINED_ID
 
@@ -15,7 +15,13 @@ class ShopItemActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_shop_item)
     parseIntent()
-    launchRightMode()
+    if (savedInstanceState == null) {
+      launchRightMode()
+    }
+  }
+
+  override fun onEditingFinished() {
+    finish()
   }
 
   private fun launchRightMode() {
@@ -25,7 +31,7 @@ class ShopItemActivity : AppCompatActivity() {
       else -> throw RuntimeException("Unknown screen mode $screenMode")
     }
     supportFragmentManager.beginTransaction()
-      .add(R.id.shop_item_container, fragment)
+      .replace(R.id.shop_item_container, fragment)
       .commit()
   }
 
